@@ -1,4 +1,4 @@
-import posts from "../posts/data";
+import posts from "../data/data";
 
 function Home() {
   const handleShare = (index) => {

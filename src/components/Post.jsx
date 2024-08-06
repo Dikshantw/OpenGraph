@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import posts from "../posts/data";
+import posts from "../data/data";
 
 function Post() {
   const { index } = useParams();

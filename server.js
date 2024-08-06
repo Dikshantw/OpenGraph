@@ -1,15 +1,8 @@
 import express from "express";
 import { launch } from "puppeteer";
-import path from "path";
-import { fileURLToPath } from "url";
-
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/api/generate-image", async (req, res) => {
+app.get("/generate-image", async (req, res) => {
   const { title, description, imageUrl } = req.query;
 
   if (!title || !description) {
@@ -38,16 +31,17 @@ app.get("/api/generate-image", async (req, res) => {
 
   const browser = await launch();
   const page = await browser.newPage();
+  await page.setViewport({
+    width: 1200,
+    height: 630,
+    deviceScaleFactor: 1, // Ensure that the image size matches the viewport size
+  });
   await page.setContent(htmlContent);
   const buffer = await page.screenshot({ type: "png" });
   await browser.close();
 
   res.set("Content-Type", "image/png");
   res.send(buffer);
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(3001, () => {
