@@ -19,11 +19,7 @@ app.get("/generate-image", async (req, res) => {
         <p style="font-size: 36px; color: black; margin: 0; margin-top: 20px; overflow-wrap: break-word; white-space: normal; word-break: break-word;">
           ${description}
         </p>
-        ${
-          imageUrl
-            ? `<img src="${imageUrl}" style="width: 150px; height: 150px; position: absolute; bottom: 20px; right: 20px;" />`
-            : ""
-        }
+        ${imageUrl ? `<img src="${imageUrl}"  />` : ""}
       </div>
     </body>
     </html>
